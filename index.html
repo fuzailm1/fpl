@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JSON Sandbox</title>
+  </head>
+  <body>
+    <ul id="elements"></ul>
+    <script>
+
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(xhttp.responseText);
+            var elements = response.elements;
+
+            var output = '';
+            output += 'Player:  '+ elements[256].first_name+ ' '+ elements[256].second_name+ '<br> Current Price: '+ ((elements[256].now_cost)/10.0).toFixed(1) + ' <br>Transfers IN this GW:  '+ elements[256].transfers_in_event;
+            output += '<br><br> Player:  ' + elements[380].first_name+ ' '+ elements[380].second_name+ ' <br>Current Price: '+ (elements[380].now_cost)/10.0 + '<br>Transfers IN this GW: '+ elements[380].transfers_in_event;
+           // for(var i = elements.length-1;i >= 0;i--){
+           //   output += '<li>'+elements[i].id + ' '+ elements[i].first_name+ ' '+ elements[i].second_name+ ' '+ (elements[i].now_cost)/10 + ' '+ elements[i].transfers_in_event +'</li>';
+           // }
+            document.getElementById('elements').innerHTML = output;
+          }
+      };
+      xhttp.open("GET", "fpl.json", true);
+      xhttp.send();
+
+    </script>
+  </body>
+</html>
